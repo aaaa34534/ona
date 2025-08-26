@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>フルverはここから</title>
+<style>
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;background:#5b80d6;color:#fff}
+  .wrap{max-width:680px;margin:0 auto;padding:28px 18px 60px}
+  h1{font-size:7vw;line-height:1.25;font-weight:800;margin:8px 0 18px}
+  p{font-size:4.4vw;line-height:1.6;margin:8px 0}
+  @media (min-width:560px){h1{font-size:40px} p{font-size:20px}}
+  .box{background:rgba(255,255,255,.12);border-radius:12px;padding:16px;margin:18px 0}
+  .btn{display:block;background:#fff;color:#4a65c8;text-align:center;font-weight:800;
+       padding:16px 20px;border-radius:12px;text-decoration:none;font-size:20px}
+  .note{font-size:14px;opacity:.9}
+  .counter{font-weight:800;font-size:22px}
+  .small{font-size:18px}
+  .blink{animation:blink 1s infinite}
+  @keyframes blink{50%{opacity:.4}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>潮吹きありのフルver見たい方は<br>ここから</h1>
+
+    <div class="box">
+      <p>無料インストールして「<b>潮吹き34</b>」で検索。<br>
+      激やばの為アプリ経由で続きが見られます（4K高画質）。</p>
+      <p class="note">※規約の都合でアプリのみ。Webには載せられません。</p>
+    </div>
+
+    <div class="box">
+      <p class="counter">残り時間：<span id="time">06:27</span></p>
+      <p class="small">規定人数に達したら繋がらなくなります。</p>
+      <p class="small">あと <span id="seats">7</span> 名 <span class="blink">↓↓↓↓↓↓</span></p>
+      <a id="cta" class="btn" href="YOUR_AFFILIATE_LINK">タップで視聴</a>
+    </div>
+
+    <div class="box note">
+      <p>※アプリを開いたら検索欄に「潮吹き34」と入力してください。</p>
+    </div>
+  </div>
+
+<script>
+  // カウントダウン（分:秒）
+  let remain = 6*60 + 27; // 初期 6分27秒
+  const el = document.getElementById('time');
+  const tick = () => {
+    remain = Math.max(0, remain - 1);
+    const m = String(Math.floor(remain/60)).padStart(2,'0');
+    const s = String(remain%60).padStart(2,'0');
+    el.textContent = `${m}:${s}`;
+  };
+  setInterval(tick, 1000); tick();
+
+  // 「あと◯名」をゆっくり減らす（演出）
+  let seats = 7;
+  const seatsEl = document.getElementById('seats');
+  const drop = () => {
+    if (seats > 2) { seats--; seatsEl.textContent = seats; }
+  };
+  setInterval(drop, 20000); // 20秒ごとに1減る
+
+  // UTM引き継ぎ（?utm_source=... をそのままCTAへ付与）
+  const params = location.search;
+  const cta = document.getElementById('cta');
+  if (params) cta.href += (cta.href.includes('?') ? '&' : '?') + params.slice(1);
+</script>
+</body>
+</html>
